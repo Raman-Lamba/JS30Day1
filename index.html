@@ -74,13 +74,18 @@
             }
             if (key) {
               key.classList.add("playing");
-              setTimeout(function () {
-                key.classList.remove("playing");
-              }, 100);
             }
           }
         });
       });
+      function removeTransition(e) {
+        if (e.propertyName !== "transform") return;
+        this.classList.remove("playing");
+      }
+      const keys = document.querySelectorAll(".key");
+      keys.forEach((key) =>
+        key.addEventListener("transitioned", removeTransition)
+      );
 
       //    if (event.keyCode == 65) {
       //      let audio = document.querySelector('audio[data-key="65"]');
